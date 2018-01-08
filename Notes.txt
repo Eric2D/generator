@@ -1,0 +1,6 @@
+Notes
+
+In both features. if you do not give a number when asked a first time in one of the prompts it asks you for a number, (as the program should).
+HOWEVER, if you put in a number the following time, the program asks you a second time even though a number waS presented.
+
+Fix the program to account for if mistakes are made
