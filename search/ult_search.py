@@ -6,7 +6,7 @@ import os
 import glob
 import sys
 
-# Opens file with the content you would like to search through
+# Opens file with the content you would like to search
 reading = open("please_find.txt")
 text = reading.read()
 reading.close()
@@ -36,7 +36,7 @@ def the_gen(text):
 				+ str(x) + '\n\n')
 			finding = text.find(search)
 
-			# for reporting on findinds in the results file
+			# for reporting on findings in the results file
 			if finding == -1:
 				results.write("\n\nCouldn't find ---- " + search)
 			else:
@@ -58,12 +58,12 @@ def the_gen(text):
 
 	
 
-	results.close
+	results.close()
 
 	# For displaying the search results after the code has finished
-	results = open(os.path.join("Results.txt"), 'r')
-	new_text = results.read()
-	results.close()
+	r_results = open(os.path.join("Results.txt"), 'r')
+	new_text = r_results.read()
+	r_results.close()
 	print new_text
 
 	sys.exit()
