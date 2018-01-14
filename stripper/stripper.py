@@ -9,8 +9,8 @@ files = os.listdir("the_data/.")
 files.sort()
 
 # inputs for search requirements
-fro = raw_input('Start search after?\n\n')
-to = raw_input('And the word just after the section?\n\n')
+fro = raw_input('Start search for phrase after?\n\n')
+to = raw_input('And the word just after the desired phrase?\n\n')
 
 # open file for writing
 pen = open("the_results/results.txt", 'w')
@@ -18,7 +18,7 @@ pen = open("the_results/results.txt", 'w')
 # loops for each file in the_data folder
 for x in files:
 
-	# prints file as
+	# prints current file for stripping
 	print x
 
 	# gathers text content from file
@@ -32,12 +32,12 @@ for x in files:
 	a_finish = text.find(to, a_start)
 	a_finish = a_finish
 
-	# declares the selected word and gets rid of the starting white space
+	# declares the selected phrase and gets rid of the starting white space
 	n_text = text[ a_start : a_finish]
-	n_text = n_text.strip()
+	
 
 	# writes in search 
-	pen.write('\n' + n_text)
+	pen.write('\n' + n_text.strip())
 
 
 pen.close()
