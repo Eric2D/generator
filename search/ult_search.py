@@ -6,30 +6,19 @@ import os
 import glob
 import sys
 
-def file_check(file_name):
-	try:
-		file_name = "please_find.txt"
-		reading = open(file_name)
-		reading.close()
-		return(file_name)
-
-	except IOError:
-		print('Please enter an existing file.\n\n')
-		sys.exit()
-
-
-file_name = ''
-file_name = file_check(file_name)
-reading = open(file_name)
+# Opens file with the content you would like to search through
+reading = open("please_find.txt")
 text = reading.read()
 reading.close()
+
+# displays content you will be searching
 print text
 
 ######################################################
 
 
 def the_gen(text):
-
+	# Opens the file where the results will be stored
 	results = open(os.path.join("Results.txt"), 'w')
 
 	try:
@@ -41,10 +30,13 @@ def the_gen(text):
 
 		for x in range(times):
 			x = x + 1
+
+			# allows input for the word or phrase you would like to search
 			search = raw_input('What are you searching? '
 				+ str(x) + '\n\n')
 			finding = text.find(search)
 
+			# for reporting on findinds in the results file
 			if finding == -1:
 				results.write("\n\nCouldn't find ---- " + search)
 			else:
@@ -68,27 +60,13 @@ def the_gen(text):
 
 	results.close
 
+	# For displaying the search results after the code has finished
 	results = open(os.path.join("Results.txt"), 'r')
 	new_text = results.read()
 	results.close()
 	print new_text
+
 	sys.exit()
-
-#######################################################
-
-#	answer = raw_input('Would you like to replace in the same '
-#		'file?\n yes\n no\n\n')
-
-#	if answer == 'yes':
-#		the_gen(text)
-#	if answer == 'no':
-#		return(text)
-#		sys.exit()
-#	else:
-#		print ('Please pick one of the options.\n\n')
-
-#	return(text)
-
 
 
 the_gen(text)
