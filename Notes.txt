@@ -1,1 +1,3 @@
 Notes
+
+Alter Military time program to search for AM or PM instead of assuming
