@@ -8,7 +8,9 @@ def the_gen():
 	results = open(os.path.join("Results.txt"), 'w')
 
 	try:
-		times = input('THE FORMAT MUST BE "1:00-3:00 "\n 	AM on the left, PM on the right'
+		times = input('THE FORMAT MUST BE (1:00am-3:00pm) or (12pm-12am)\n'
+			'THIS CODE DOES NOT ASSUME AM AND PM'
+			'Words that are entered will only be printed, they cannot be converted'
 			'\n\nHow many items would you like to convert?\n\n')
 
 	
@@ -17,23 +19,9 @@ def the_gen():
 		# time possibilities
 		num_set1 = ['1','2','3','4','5','6','7','8','9','10','11','12']
 
-		time_set1 = ['1:00','2:00','3:00','4:00','5:00','6:00','7:00',
-			'8:00','9:00','10:00','11:00','12:00']
-		time_set11 = ['1: 00','2: 00','3: 00','4: 00','5: 00','6: 00','7: 00',
-			'8: 00','9: 00','10: 00','11: 00','12: 00']
-		time_set111 = ['1 :00','2 :00','3 :00','4 :00','5 :00','6 :00','7 :00',
-			'8 :00','9 :00','10 :00','11 :00','12 :00']
-		new_time1 = ['13:00','14:00','15:00','16:00','17:00','18:00','19:00',
-			'20:00','21:00','22:00','23:00','00:00']
+		pm_time = ['13','14','15','16','17','18','19',
+			'20','21','22','23','12']
 
-		time_set2 = ['1:30','2:30','3:30','4:30','5:30','6:30','7:30',
-			'8:30','9:30','10:30','11:30','12:30']
-		time_set22 = ['1: 30','2: 30','3: 30','4: 30','5: 30','6: 30','7: 30',
-			'8: 30','9: 30','10: 30','11: 30','12: 30']
-		time_set222 = ['1 :30','2 :30','3 :30','4 :30','5 :30','6 :30','7 :30',
-			'8 :30','9 :30','10 :30','11 :30','12 :30']
-		new_time2 = ['13:30','14:30','15:30','16:30','17:30','18:30','19:30',
-			'20:30','21:30','22:30','23:30','00:30']
 
 		for x in range(times):
 			x = x + 1
@@ -41,46 +29,88 @@ def the_gen():
 			# allows input for the time you would like to convert
 			search = raw_input('What are you converting? '
 				+ str(x) + '\n\n')
-			start = search.find('-') + 1
+			
 
-			am = search[:start - 1]
+			# strips white space for time variable and makes all letters lower case
+			# creating number string variable
+			num_search = search.lower()
+			count_space = num_search.count(' ')
+			num_search = num_search.replace(' ', '', count_space)
 
-			pm = search[start:]
+			# establish am and pm on right and left side + first center marker
+			center_marker = num_search.find('-')
+			left_am = search.find('am', 0, center_marker)
+			right_am = search.find('am', center_marker)
+			left_pm = search.find('pm', 0, center_marker)
+			right_pm = search.find('pm', center_marker)
+
+			# strip am and pm away for simple conversion
+			num_search = num_search.replace('pm','', 2)
+			num_search = num_search.replace('am', '', 2)
+
+			# set search markers
+			center_marker = num_search.find('-')
+			left_marker = num_search.find(':')
+			right_marker = num_search.find(':', left_marker + 1)
+
+			# seperating time variable
+			left_hour = num_search[ : left_marker]
+			left_min = num_search[ left_marker : center_marker ]
+
+			right_hour = num_search[ center_marker + 1 : right_marker ]
+			right_min = num_search[ right_marker : ]
+
+			# for scenario if the times are properly formated 1:00am-3:00pm
+			if left_marker != -1 and right_marker != -1:
+
+				# for left side of time
+				if left_pm != -1:
+					for x in range(12):
+
+						if left_hour == num_set1[x]:
+							left_hour = pm_time[x]
+				# for special case 12am
+				if left_am != -1:
+
+					if left_hour == '12':
+						left_hour = '00'
 
 
-			# for reporting on conversion in the results file
-			if start == 0:
+				# for Right side of time
+				if right_pm != -1:
+					for x in range(12):
+
+						if right_hour == num_set1[x]:
+							right_hour = pm_time[x]
+				# for special case 12am
+				if right_am != -1:
+
+					if right_hour == '12':
+						right_hour = '00'
+
+				first = left_hour + left_min
+				second = right_hour + right_min
+
+				results.write('\n' + first + '-' + second)
+				continue
+
+			# for scenario if the times are properly formated 12pm-12am
+			if left_marker == -1 and right_marker == -1:
+				if left_am != -1 or left_pm != -1:
+					if right_am != -1 or right_pm != -1:
+						scenario2.scen2(search, results)
+						continue
+
+			# for scenario if time is not in correct format
+			if left_marker == -1 or right_marker == -1:
 				results.write('\n' + search)
-			else:
-				for x in range(12):
-
-					# AM possibilities check
-					if am == time_set111[x] or am == time_set11[x]:
-						am = time_set1[x]
-					
-					if am == num_set1[x]:
-						am = time_set1[x]
-
-					if am == time_set222[x] or am == time_set22[x]:
-						am = time_set2[x]
-
-				for x in range(12):
-
-					# PM possibilities check
-					if pm == time_set1[x] or pm == time_set11[x]:
-						pm = new_time1[x]
-					if pm == time_set111[x]:
-						pm = new_time1[x]
-
-					if pm == num_set1[x]:
-						pm = new_time1[x]
-
-					if pm == time_set2[x] or pm == time_set22[x]:
-						pm = new_time2[x]
-					if pm == time_set222[x]:
-						pm = new_time2[x]
-
-				results.write('\n' + am + '-' + pm)
+				continue
+			if left_am == -1 or left_pm == -1:
+				results.write('\n' + search)
+				continue
+			if right_am == -1 or right_pm == -1:
+				results.write('\n' + search)
+				continue
 
 			
 	except ValueError:
