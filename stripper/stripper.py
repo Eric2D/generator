@@ -32,11 +32,11 @@ for x in files:
 	a_finish = text.find(to, a_start)
 	a_finish = a_finish
 
-	# declares the selected phrase and gets rid of the starting white space
+	# declares the selected phrase
 	n_text = text[ a_start : a_finish]
 	
 
-	# writes in search 
+	# writes in search and gets rid of the starting white space
 	pen.write('\n' + n_text.strip())
 
 
