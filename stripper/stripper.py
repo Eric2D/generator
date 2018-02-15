@@ -1,4 +1,4 @@
-# stripper
+# stripper searches through all files in the_data folder and returns a list of results
 
 import io
 import os

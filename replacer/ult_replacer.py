@@ -1,4 +1,5 @@
-# ult_rep
+# ult_rep replaces selected text in files
+
 import io
 import os
 import glob

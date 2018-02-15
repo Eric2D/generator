@@ -1,4 +1,4 @@
-# ult_search
+# ult_search mass searches through content and returns a results sheet.
 
 import io
 import os
@@ -6,7 +6,7 @@ import glob
 import sys
 
 # Opens file with the content you would like to search
-reading = open("please_find.txt")
+reading = open("content.txt")
 text = reading.read()
 reading.close()
 

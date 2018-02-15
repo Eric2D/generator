@@ -1,12 +1,11 @@
-# stripper2
-# stripper
+# stripper2 mass searches through the content file and reuturns desired search results
 
 import io
 import os
 import sys
 
 # gathers text content from file
-opening = open('the_data/' + 'the_content.txt', 'r')
+opening = open('the_data/the_content.txt', 'r')
 text = opening.read()
 opening.close
 

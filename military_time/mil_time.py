@@ -1,3 +1,5 @@
+# mil_time converts regular time to military time
+
 import io
 import os
 import glob

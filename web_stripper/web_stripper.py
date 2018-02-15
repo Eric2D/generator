@@ -1,4 +1,4 @@
-# stripper
+# web stripper searches through content provided from links  to pull desired content
 
 import io
 import os

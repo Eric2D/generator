@@ -1,4 +1,4 @@
-# stripper
+# web search searches through content provided multiple web links for a single word or phrase and returns results
 
 import io
 import os
