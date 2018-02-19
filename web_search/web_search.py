@@ -88,96 +88,46 @@ def counter(count):
 
 count = None
 
+# to check input for an actual number
+while count < 0:
+	count = counter(count)
 
-what = raw_input('Find word or find phrase?\n  *word\n  *phrase\n\n')
+# inputs for search requirements
+word = raw_input('What is the word or phrase?\n\n')
 
-if what == 'phrase':
-	
-	# to check input for an actual number
-	while count < 0:
-		count = counter(count)
+# open file for writing
+pen = open("the_results/results.txt", 'w')
 
-	# inputs for search requirements
-	fro = raw_input('The beginning of desired content?\n\n')
-	to = raw_input('And the word just after the desired phrase?\n\n')
+# loops for each link input
+for x in range (count):
 
-	# open file for writing
-	pen = open("the_results/results.txt", 'w')
+	link = raw_input("What link would you like to search from?\n\n")
 
-	# loops for each link input
-	for x in range (count):
+	print link
 
-		link = raw_input("What link would you like to strip from?\n\n")
+	try:
+		# gathers text from link
+		site_text = urllib2.urlopen(link)
+		text = site_text.read()
 
-		print link
+		# finds desired content
+		a_start = text.find(word)
 
-		try:
-			# gathers text from link
-			site_text = urllib2.urlopen(link)
-			text = site_text.read()
-
-			# finds starting point and end point for desired content
-			a_start = text.find(fro)
-			a_finish = text.find(to, a_start)
-			a_finish = a_finish
-
-			# declares the selected phrase
-			n_text = text[ a_start : a_finish]
+		if a_start == -1:
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + n_text.strip() + " ---- " + link)
+			pen.write('\n' + "Not Found ---- " + word + " ---- " + link)
 
-		except urllib2.HTTPError as e:
-			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+		if a_start != -1:
 
-		except ValueError:
-			pen.write("\nCheck link ---- " + link)
+			# writes in search and gets rid of the starting white space
+			pen.write('\n' + "Found it ---- " + word + " ---- " + link)
 
+	except urllib2.HTTPError as e:
+		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
 
-
-	pen.close()
-
-if what == 'word':
-	# to check input for an actual number
-	while count < 0:
-		count = counter(count)
-
-	# inputs for search requirements
-	word = raw_input('What is the word?\n\n')
-
-	# open file for writing
-	pen = open("the_results/results.txt", 'w')
-
-	# loops for each link input
-	for x in range (count):
-
-		link = raw_input("What link would you like to strip from?\n\n")
-
-		print link
-
-		try:
-			# gathers text from link
-			site_text = urllib2.urlopen(link)
-			text = site_text.read()
-
-			# finds desired content
-			a_start = text.find(word)
-
-			if a_start == -1:
-
-				# writes in search and gets rid of the starting white space
-				pen.write('\n' + "Not Found ---- " + word + " ---- " + link)
-
-			if a_start != -1:
-
-				# writes in search and gets rid of the starting white space
-				pen.write('\n' + "Found it ---- " + word + " ---- " + link)
-
-		except urllib2.HTTPError as e:
-			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
-
-		except ValueError:
-			pen.write("\nCheck link ---- " + link)
+	except ValueError:
+		pen.write("\nCheck link ---- " + link)
 
 
-	pen.close()
+pen.close()
