@@ -89,47 +89,47 @@ def counter(count):
 count = None
 
 
-	# to check input for an actual number
-	while count < 0:
-		count = counter(count)
+# to check input for an actual number
+while count < 0:
+	count = counter(count)
 
-	# inputs for search requirements
-	fro = raw_input('Start search for phrase after?\n\n')
-	to = raw_input('And the word just after the desired phrase?\n\n')
+# inputs for search requirements
+fro = raw_input('Start search for phrase after?\n\n')
+to = raw_input('And the word just after the desired phrase?\n\n')
 
-	# open file for writing
-	pen = open("the_results/results.txt", 'w')
+# open file for writing
+pen = open("the_results/results.txt", 'w')
 
-	# loops for each link input
-	for x in range (count):
+# loops for each link input
+for x in range (count):
 
-		link = raw_input("What link would you like to strip from?\n\n")
+	link = raw_input("What link would you like to strip from?\n\n")
 
-		print link
+	print link
 
-		try:
-			# gathers text from link
-			site_text = urllib2.urlopen(link)
-			text = site_text.read()
+	try:
+		# gathers text from link
+		site_text = urllib2.urlopen(link)
+		text = site_text.read()
 
-			# finds starting point and end point for desired content
-			a_start = text.find(fro)
-			a_start = a_start + len(fro)
-			a_finish = text.find(to, a_start)
-			a_finish = a_finish
+		# finds starting point and end point for desired content
+		a_start = text.find(fro)
+		a_start = a_start + len(fro)
+		a_finish = text.find(to, a_start)
 
-			# declares the selected phrase
-			n_text = text[ a_start : a_finish]
-			
+		# declares the selected phrase
+		n_text = text[ a_start : a_finish]
+		
 
-			# writes in search and gets rid of the starting white space
-			pen.write('\n' + n_text.strip() + " ---- " + link)
+		# writes in search and gets rid of the starting white space
+		pen.write('\n' + "Found" + " ---- " + n_text)
 
-		except urllib2.HTTPError as e:
-			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+	except urllib2.HTTPError as e:
+		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
 
-		except ValueError:
-			pen.write("\nCheck link ---- " + link)
+	except ValueError:
+		pen.write("\nCheck link ---- " + link)
 
 
-	pen.close()
+pen.close()
+print 'Open the results.txt file and search "Found" or "Check link" to quickly check results'
