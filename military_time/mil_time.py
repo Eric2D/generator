@@ -8,7 +8,7 @@ import scenario2
 
 def the_gen():
 	# Opens the file where the results will be stored
-	results = open(os.path.join("../ZZ_data_ZZ/Results.txt"), 'w')
+	results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'w')
 
 	try:
 		times = input('THE FORMAT MUST BE (1:00am-3:00pm) or (12pm-12am)\n'
@@ -134,7 +134,7 @@ def the_gen():
 	results.close()
 	
 	# For displaying the search results after the code has finished
-	r_results = open(os.path.join("../ZZ_data_ZZ/Results.txt"), 'r')
+	r_results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'r')
 	new_text = r_results.read()
 	r_results.close()
 	print new_text
