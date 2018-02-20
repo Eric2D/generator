@@ -5,7 +5,7 @@ import os
 import sys
 
 # lists and sorts the files
-files = os.listdir("the_data/.")
+files = os.listdir("../ZZ_files_ZZ/.")
 files.sort()
 
 # inputs for search requirements
@@ -13,7 +13,7 @@ fro = raw_input('Start search for phrase after?\n\n')
 to = raw_input('And the word just after the desired phrase?\n\n')
 
 # open file for writing
-pen = open("the_results/results.txt", 'w')
+pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
 # loops for each file in the_data folder
 for x in files:
@@ -22,7 +22,7 @@ for x in files:
 	print x
 
 	# gathers text content from file
-	opening = open('the_data/' + x, 'r')
+	opening = open('../ZZ_files_ZZ/' + x, 'r')
 	text = opening.read()
 	opening.close
 
