@@ -98,7 +98,7 @@ fro = raw_input('Start search for phrase after?\n\n')
 to = raw_input('And the word just after the desired phrase?\n\n')
 
 # open file for writing
-pen = open("the_results/results.txt", 'w')
+pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
 # loops for each link input
 for x in range (count):
