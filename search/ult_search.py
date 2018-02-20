@@ -6,7 +6,7 @@ import glob
 import sys
 
 # Opens file with the content you would like to search
-reading = open("content.txt")
+reading = open("../ZZ_data_ZZ/content.txt")
 text = reading.read()
 reading.close()
 
@@ -18,7 +18,7 @@ print text
 
 def the_gen(text):
 	# Opens the file where the results will be stored
-	results = open(os.path.join("Results.txt"), 'w')
+	results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'w')
 
 	try:
 		times = input('How many items would you like '
@@ -60,7 +60,7 @@ def the_gen(text):
 	results.close()
 
 	# For displaying the search results after the code has finished
-	r_results = open(os.path.join("Results.txt"), 'r')
+	r_results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'r')
 	new_text = r_results.read()
 	r_results.close()
 	print new_text
