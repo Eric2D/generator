@@ -4,14 +4,15 @@ import io
 import os
 import glob
 import sys
+import scenario2
 
 def the_gen():
 	# Opens the file where the results will be stored
-	results = open(os.path.join("Results.txt"), 'w')
+	results = open(os.path.join("../ZZ_data_ZZ/Results.txt"), 'w')
 
 	try:
 		times = input('THE FORMAT MUST BE (1:00am-3:00pm) or (12pm-12am)\n'
-			'THIS CODE DOES NOT ASSUME AM AND PM'
+			'THIS CODE DOES NOT ASSUME AM AND PM\n'
 			'Words that are entered will only be printed, they cannot be converted'
 			'\n\nHow many items would you like to convert?\n\n')
 
@@ -133,7 +134,7 @@ def the_gen():
 	results.close()
 	
 	# For displaying the search results after the code has finished
-	r_results = open(os.path.join("Results.txt"), 'r')
+	r_results = open(os.path.join("../ZZ_data_ZZ/Results.txt"), 'r')
 	new_text = r_results.read()
 	r_results.close()
 	print new_text
