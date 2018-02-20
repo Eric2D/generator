@@ -126,7 +126,8 @@ for x in range (count):
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
-
+	except urllib2.URLError:
+		pen.write("\nCheck link ---- " + link)
 	except ValueError:
 		pen.write("\nCheck link ---- " + link)
 
