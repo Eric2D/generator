@@ -96,7 +96,7 @@ while count < 0:
 word = raw_input('What is the word or phrase?\n\n')
 
 # open file for writing
-pen = open("the_results/results.txt", 'w')
+pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
 # loops for each link input
 for x in range (count):
@@ -125,9 +125,9 @@ for x in range (count):
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
-
+	except urllib2.URLError:
+		pen.write("\nCheck link ---- " + link)
 	except ValueError:
 		pen.write("\nCheck link ---- " + link)
-
-
+		
 pen.close()
