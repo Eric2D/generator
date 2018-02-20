@@ -5,7 +5,7 @@ import os
 import sys
 
 # gathers text content from file
-opening = open('the_data/the_content.txt', 'r')
+opening = open("../ZZ_data_ZZ/content.txt", 'r')
 text = opening.read()
 opening.close
 
@@ -13,13 +13,14 @@ def the_gen(text):
 
 	try:
 
+		print text + '\n\n'
 		# inputs for search requirements
 		fro = raw_input('The beginning of desired content?\n\n')
 		to = raw_input('And the word just after the desired phrase?\n\n')
 		count = input('How many times would you like to strip from this file?\n\n')
 
 		# open file for writing
-		pen = open("the_results/results.txt", 'w')
+		pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
 		# loops for each count
 		for x in range (count):
