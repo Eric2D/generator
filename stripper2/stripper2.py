@@ -41,7 +41,7 @@ def the_gen(text):
 				text = text.replace(n_text, '', 1)
 
 				# writes in search and gets rid of the starting white space
-				pen.write('\n' + n_text.strip())
+				pen.write('\n' + "Found" + " ---- " + n_text.strip())
 
 
 		pen.close()
@@ -62,4 +62,4 @@ def the_gen(text):
 
 the_gen(text)
 
-print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\n"
