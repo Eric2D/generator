@@ -10,10 +10,9 @@ text = opening.read()
 opening.close
 
 def the_gen(text):
-
+	
 	try:
-
-		print text + '\n\n'
+		
 		# inputs for search requirements
 		fro = raw_input('The beginning of desired content?\n\n')
 		to = raw_input('And the word just after the desired phrase?\n\n')
@@ -30,7 +29,7 @@ def the_gen(text):
 			a_finish = text.find(to, a_start)
 
 			if a_start == -1 or a_finish == -1:
-				pen.write("\nCouldn't find ---- " + search)
+				pen.write("\n---- Couldn't find ---- ")
 
 			if a_start != -1 and a_finish != -1:
 
@@ -46,19 +45,26 @@ def the_gen(text):
 
 		pen.close()
 
+		# saves the what is left after the strip
+		remains = open("../ZZ_data_ZZ/remains.txt", 'w')
+		remains.write(text)
+		remains.close
 
 	except ValueError:
 		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
+		the_gen(text)
 	except SyntaxError:
 		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
+		the_gen(text)
 	except TypeError:
 		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
+		the_gen(text)
 	except NameError:
 		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
+		the_gen(text)
+
+	
+print text + '\n\n'
 
 the_gen(text)
 
