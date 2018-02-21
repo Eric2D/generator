@@ -27,17 +27,23 @@ for x in files:
 	opening.close
 
 	# finds starting point and end point for desired content
-	a_start = text.find(fro)
-	a_start = a_start + len(fro)
+	marker = text.find(fro)
+	a_start = marker + len(fro)
 	a_finish = text.find(to, a_start)
-	a_finish = a_finish
 
-	# declares the selected phrase
-	n_text = text[ a_start : a_finish]
-	
 
-	# writes in search and gets rid of the starting white space
-	pen.write('\n' + n_text.strip())
+	if marker == -1 or a_finish == -1:
+		pen.write("\n---- Couldn't find ---- ")
+
+	if marker != -1 and a_finish != -1:
+		# declares the selected phrase
+		n_text = text[ a_start : a_finish]
+		
+
+		# writes in search and gets rid of the starting white space
+		pen.write('\n' + n_text.strip())
 
 
 pen.close()
+
+print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
