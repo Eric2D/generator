@@ -110,8 +110,10 @@ for x in range (count):
 		site_text = urllib2.urlopen(link)
 		text = site_text.read()
 
-		# finds desired content
+		# finds and counts desired content
 		a_start = text.find(word)
+		counting = text.count(word)
+		counting = str(counting)
 
 		if a_start == -1:
 
@@ -121,7 +123,7 @@ for x in range (count):
 		if a_start != -1:
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found ---- " + word + " ---- " + link)
+			pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
