@@ -60,8 +60,8 @@ def the_gen(text):
 	editing = open(os.path.join(results), 'r')
 	new_text = editing.read()
 	editing.close()
-	print new_text
-	sys.exit()
+	print 'Open results.txt file to see your results'
+	return
 
 
 
