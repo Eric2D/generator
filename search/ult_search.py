@@ -69,3 +69,5 @@ def the_gen(text):
 
 
 the_gen(text)
+
+print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\n"
