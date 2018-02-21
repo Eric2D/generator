@@ -46,4 +46,4 @@ for x in files:
 
 pen.close()
 
-print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\n"
