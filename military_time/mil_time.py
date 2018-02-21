@@ -137,9 +137,8 @@ def the_gen():
 	r_results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'r')
 	new_text = r_results.read()
 	r_results.close()
-	print new_text
+	print 'Open results.txt file to see your results'
 
-	sys.exit()
 
 
 the_gen()
