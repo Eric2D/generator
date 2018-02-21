@@ -77,7 +77,7 @@ responses = {
 
 def counter(count):
 	try:
-		count = input('How many links would you like to strip from?\n\n')
+		count = input('How many links would you like to search from?\n\n')
 		return count
 	except SyntaxError:
 		print 'Please use a number.\n\n'
@@ -121,7 +121,7 @@ for x in range (count):
 		if a_start != -1:
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found it ---- " + word + " ---- " + link)
+			pen.write('\n' + "Found ---- " + word + " ---- " + link)
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
