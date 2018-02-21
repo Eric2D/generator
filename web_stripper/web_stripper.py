@@ -112,17 +112,23 @@ for x in range (count):
 		site_text = urllib2.urlopen(link)
 		text = site_text.read()
 
-		# finds starting point and end point for desired content
-		a_start = text.find(fro)
-		a_start = a_start + len(fro)
+		# finds starting point and end point for desired content content
+		marker = text.find(fro)
+		a_start = marker + len(fro)
 		a_finish = text.find(to, a_start)
 
-		# declares the selected phrase
-		n_text = text[ a_start : a_finish]
-		
+		if marker == -1 or a_finish == -1:
+			pen.write("\n---- Couldn't find ---- ")
 
-		# writes in search and gets rid of the starting white space
-		pen.write('\n' + "Found" + " ---- " + n_text)
+		if marker != -1 and a_finish != -1:
+			# declares the selected phrase
+			n_text = text[ a_start : a_finish]
+			print a_start
+			print a_finish
+			
+
+			# writes in search and gets rid of the starting white space
+			pen.write('\n' + "Found" + " ---- " + n_text)
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
@@ -133,4 +139,5 @@ for x in range (count):
 
 
 pen.close()
-print 'Open the results.txt file and search "Found" or "Check link" to quickly check results'
+
+print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
