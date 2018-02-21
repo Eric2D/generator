@@ -116,7 +116,7 @@ for x in range (count):
 		if a_start == -1:
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Not Found ---- " + word + " ---- " + link)
+			pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
 
 		if a_start != -1:
 
@@ -129,5 +129,7 @@ for x in range (count):
 		pen.write("\nCheck link ---- " + link)
 	except ValueError:
 		pen.write("\nCheck link ---- " + link)
-		
+
 pen.close()
+
+print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
