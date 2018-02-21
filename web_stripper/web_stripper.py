@@ -128,7 +128,7 @@ for x in range (count):
 			
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found" + " ---- " + n_text)
+			pen.write('\n' + "Found" + " ---- " + n_text.strip())
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
@@ -140,4 +140,4 @@ for x in range (count):
 
 pen.close()
 
-print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' or 'Check link' to quickly check results\n"
