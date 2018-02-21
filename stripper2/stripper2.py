@@ -28,16 +28,20 @@ def the_gen(text):
 			# finds starting point and end point for desired content
 			a_start = text.find(fro)
 			a_finish = text.find(to, a_start)
-			a_finish = a_finish
 
-			# declares the selected phrase
-			n_text = text[ a_start : a_finish]
-			
-			# deletes recently searched phrase from workspace so it is not searched again
-			text = text.replace(n_text, '', 1)
+			if a_start == -1 or a_finish == -1:
+				pen.write("\nCouldn't find ---- " + search)
 
-			# writes in search and gets rid of the starting white space
-			pen.write('\n' + n_text.strip())
+			if a_start != -1 and a_finish != -1:
+
+				# declares the selected phrase
+				n_text = text[ a_start : a_finish]
+				
+				# deletes recently searched phrase from workspace so it is not searched again
+				text = text.replace(n_text, '', 1)
+
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + n_text.strip())
 
 
 		pen.close()
@@ -57,3 +61,5 @@ def the_gen(text):
 		the_gen()
 
 the_gen(text)
+
+print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
