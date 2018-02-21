@@ -33,13 +33,17 @@ def the_gen(text):
 			# allows input for the word or phrase you would like to search
 			search = raw_input('What are you searching? '
 				+ str(x) + '\n\n')
+
+			# Finds and counts the desired content
 			finding = text.find(search)
+			counting = text.count(search)
+			counting = str(counting)
 
 			# for reporting on findings in the results file
 			if finding == -1:
 				results.write("\n\nCouldn't find ---- " + search)
 			else:
-				results.write("\n\nFound ---- " + search)
+				results.write("\n\nFound ---- " + search + " ---- " + counting)
 
 			
 	except ValueError:
