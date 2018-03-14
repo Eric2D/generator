@@ -68,4 +68,4 @@ print text + '\n\n'
 
 the_gen(text)
 
-print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\n"
+print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\nAnd open remains.txt to see the left over content.\n"
