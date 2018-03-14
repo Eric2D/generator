@@ -92,8 +92,9 @@ count = None
 while count < 0:
 	count = counter(count)
 
-# inputs for search requirements
+# inputs for search requirements and makes phrase lowercase
 word = raw_input('What is the word or phrase?\n\n')
+word = word.lower()
 
 # open file for writing
 pen = open("../ZZ_data_ZZ/results.txt", 'w')
@@ -106,9 +107,10 @@ for x in range (count):
 	print link
 
 	try:
-		# gathers text from link
+		# gathers text from link and makes text lowercase
 		site_text = urllib2.urlopen(link)
 		text = site_text.read()
+		text = text.lower()
 
 		# finds and counts desired content
 		a_start = text.find(word)
