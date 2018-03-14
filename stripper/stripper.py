@@ -33,7 +33,7 @@ for x in files:
 
 
 	if marker == -1 or a_finish == -1:
-		pen.write("\n---- Couldn't find ---- ")
+		pen.write("\n---- Couldn't find ---- " + x)
 
 	if marker != -1 and a_finish != -1:
 		# declares the selected phrase
