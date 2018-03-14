@@ -24,7 +24,8 @@ def the_gen(text):
 		times = input('How many items would you like '
 			'to search?\n\n')
 
-	
+		# Make the text lowercase to find all variations of search
+		text = text.lower()
 ######################################################
 
 		for x in range(times):
@@ -33,6 +34,8 @@ def the_gen(text):
 			# allows input for the word or phrase you would like to search
 			search = raw_input('What are you searching? '
 				+ str(x) + '\n\n')
+			# Make the text lowercase to find all variations of search
+			search = search.lower()
 
 			# Finds and counts the desired content
 			finding = text.find(search)
@@ -67,7 +70,6 @@ def the_gen(text):
 	r_results = open(os.path.join("../ZZ_data_ZZ/results.txt"), 'r')
 	new_text = r_results.read()
 	r_results.close()
-	print new_text
 
 	sys.exit()
 
