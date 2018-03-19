@@ -4,26 +4,25 @@ import io
 import os
 import sys
 
+def counter(count):
+	try:
+		count = input('How many phrases would you like to omit?\n\n')
+		return count
+	except SyntaxError:
+		print 'Please use a number.\n\n'
+		return
+	except NameError:
+		print 'Please use a number.\n\n'
+		return
+
 def the_gen():
 
-	try:
-		
-		count = input('How many times would you like to omit?\n\n')
+	count = None
 
-	except ValueError:
-		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
-	except SyntaxError:
-		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
-	except TypeError:
-		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
-	except NameError:
-		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
-
-
+	# to check input for an actual number
+	while count < 0:
+		count = counter(count)
+	
 	# Opens file content you would like to search and creates a list
 	reading = open("../ZZ_data_ZZ/content.txt")
 	lines = reading.readlines()
@@ -92,7 +91,7 @@ def the_gen():
 		print "Writing remains - " + str(num) + " / " + str(len(checks_balances))
 
 	remains.close()
-	
+	sys.exit()
 
 the_gen()
 
