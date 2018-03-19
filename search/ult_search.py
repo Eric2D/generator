@@ -10,9 +10,6 @@ reading = open("../ZZ_data_ZZ/content.txt")
 text = reading.read()
 reading.close()
 
-# displays content you will be searching
-print text
-
 ######################################################
 
 
@@ -44,9 +41,9 @@ def the_gen(text):
 
 			# for reporting on findings in the results file
 			if finding == -1:
-				results.write("\n\nCouldn't find ---- " + search)
+				results.write("\n\nCouldn't find //// " + search)
 			else:
-				results.write("\n\nFound ---- " + search + " ---- " + counting)
+				results.write("\n\nFound //// " + search + " ---- " + counting)
 
 			
 	except ValueError:

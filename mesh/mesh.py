@@ -1,4 +1,4 @@
-# mesh one word or phrase to a bunch of other phrases
+# mesh one word or phrase to a bunch of other phrases in a list or sandwich phrases in a list
 
 import io
 import os
@@ -8,7 +8,8 @@ def the_gen():
 
 	# inputs for search requirements
 	phrase = raw_input('The phrase to mesh?\n\n')
-	
+	sandwich = raw_input('And to close the sandwich?\n\n')
+
 	try:
 		
 		count = input('How many times would you like to combine?\n\n')
@@ -37,7 +38,7 @@ def the_gen():
 
 		input_phrase = raw_input("The phrase to mesh? " + str(num) + "\n\n")
 
-		mesh = pen.write("\n" + phrase + input_phrase)
+		mesh = pen.write("\n" + phrase + input_phrase + sandwich)
 
 	pen.close()
 
