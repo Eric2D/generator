@@ -1,4 +1,4 @@
-# web search searches through content provided multiple web links for a single word or phrase and returns results
+# multiple ways to search through the web for content
 
 import io
 import os
@@ -86,54 +86,126 @@ def counter(count):
 		print 'Please use a number.\n\n'
 		return
 
-count = None
+# Search multiple links for one phrase
+def search_type_1():
+	count = None
 
-# to check input for an actual number
-while count < 0:
-	count = counter(count)
+	# to check input for an actual number
+	while count < 0:
+		count = counter(count)
 
-# inputs for search requirements and makes phrase lowercase
-word = raw_input('What is the word or phrase?\n\n')
-word = word.lower()
+	# inputs for search requirements and makes phrase lowercase
+	word = raw_input('What is the word or phrase?\n\n')
+	word = word.lower()
 
-# open file for writing
-pen = open("../ZZ_data_ZZ/results.txt", 'w')
+	# open file for writing
+	pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
-# loops for each link input
-for x in range (count):
+	# loops for each link input
+	for x in range (count):
 
-	link = raw_input("What link would you like to search from?\n\n")
+		link = raw_input("What link would you like to search from?\n\n")
 
-	print link
+		print link
 
-	try:
-		# gathers text from link and makes text lowercase
-		site_text = urllib2.urlopen(link)
-		text = site_text.read()
-		text = text.lower()
+		try:
+			# gathers text from link and makes text lowercase
+			site_text = urllib2.urlopen(link)
+			text = site_text.read()
+			text = text.lower()
 
-		# finds and counts desired content
-		a_start = text.find(word)
-		counting = text.count(word)
-		counting = str(counting)
+			# finds and counts desired content
+			a_start = text.find(word)
+			counting = text.count(word)
+			counting = str(counting)
 
-		if a_start == -1:
+			if a_start == -1:
 
-			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
 
-		if a_start != -1:
+			if a_start != -1:
 
-			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
 
-	except urllib2.HTTPError as e:
-		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
-	except urllib2.URLError:
-		pen.write("\nCheck link ---- " + link)
-	except ValueError:
-		pen.write("\nCheck link ---- " + link)
+		except urllib2.HTTPError as e:
+			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+		except urllib2.URLError:
+			pen.write("\nCheck link ---- " + link)
+		except ValueError:
+			pen.write("\nCheck link ---- " + link)
 
-pen.close()
+	pen.close()
 
-print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+	print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+
+# Search one link for one item in mass
+def search_type_2():
+	count = None
+
+	# to check input for an actual number
+	while count < 0:
+		count = counter(count)
+
+	# open file for writing
+	pen = open("../ZZ_data_ZZ/results.txt", 'w')
+
+	# loops for each link input
+	for x in range (count):
+		# inputs for search requirements and makes phrase lowercase
+		word = raw_input('What is the word or phrase?\n\n')
+		word = word.lower()
+
+		link = raw_input("What link would you like to search from?\n\n")
+
+		print link
+
+		try:
+			# gathers text from link and makes text lowercase
+			site_text = urllib2.urlopen(link)
+			text = site_text.read()
+			text = text.lower()
+
+			# finds and counts desired content
+			a_start = text.find(word)
+			counting = text.count(word)
+			counting = str(counting)
+
+			if a_start == -1:
+
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
+
+			if a_start != -1:
+
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
+
+		except urllib2.HTTPError as e:
+			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+		except urllib2.URLError:
+			pen.write("\nCheck link ---- " + link)
+		except ValueError:
+			pen.write("\nCheck link ---- " + link)
+
+	pen.close()
+
+	print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+
+answer = None
+
+while answer != "exit":
+
+	answer = raw_input("Which search type would you like to use?\n\n"
+		"	TYPE 1 - Search multiple links for one phrase\n"
+		"	TYPE 2 - Search one link for one item in mass\n"
+		"	Exit\n\n")
+	answer = answer.lower()
+
+	if answer == "type 1":
+		search_type_1()
+	if answer == "type 2":
+		search_type_2()
+
+sys.exit()
