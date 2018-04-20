@@ -4,31 +4,35 @@ import io
 import os
 import sys
 
+def counter(count):
+	try:
+		
+		count = input('How many times would you like to combine?\n\n')
+		return count
+
+	except ValueError:
+		print('\n\n\n\nPlease enter a number.\n\n\n\n')
+	except SyntaxError:
+		print('\n\n\n\nPlease enter a number.\n\n\n\n')
+	except TypeError:
+		print('\n\n\n\nPlease enter a number.\n\n\n\n')
+	except NameError:
+		print('\n\n\n\nPlease enter a number.\n\n\n\n')
+
 def the_gen():
 
 	# inputs for search requirements
 	phrase = raw_input('The phrase to mesh?\n\n')
 	sandwich = raw_input('And to close the sandwich?\n\n')
 
-	try:
-		
-		count = input('How many times would you like to combine?\n\n')
-
-	except ValueError:
-		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
-	except SyntaxError:
-		print('\n\n\n\nPlease enter a number.\n\n\n\n')
-		the_gen()
-	except TypeError:
-		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
-	except NameError:
-		print('\n\n\n\nPlease enter a whole number.\n\n\n\n')
-		the_gen()
-
 	# open file for writing
 	pen = open("../ZZ_data_ZZ/results.txt", 'w')
+
+	count = 0
+
+	while count <= 0:
+		count = counter(count)
+
 
 	num = 0
 	# loops for each count
