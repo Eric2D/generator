@@ -143,7 +143,7 @@ def search_type_1():
 # Search one link for one item in mass
 def search_type_2():
 	count = None
-
+	operation_counter = 0
 	# to check input for an actual number
 	while count < 0:
 		count = counter(count)
@@ -151,43 +151,51 @@ def search_type_2():
 	# open file for writing
 	pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
+	word_list = []
+	link_list = []
+
 	# loops for each link input
 	for x in range (count):
 		# inputs for search requirements and makes phrase lowercase
 		word = raw_input('What is the word or phrase?\n\n')
 		word = word.lower()
+		word_list = word_list + [word]
 
+	for x in range (count):
 		link = raw_input("What link would you like to search from?\n\n")
+		link_list = link_list + [link]
 
-		print link
-
+	for x in range (count):
 		try:
 			# gathers text from link and makes text lowercase
-			site_text = urllib2.urlopen(link)
+			site_text = urllib2.urlopen(link_list[operation_counter])
 			text = site_text.read()
 			text = text.lower()
 
 			# finds and counts desired content
-			a_start = text.find(word)
-			counting = text.count(word)
+			a_start = text.find(word_list[operation_counter])
+			counting = text.count(word_list[operation_counter])
 			counting = str(counting)
 
 			if a_start == -1:
 
 				# writes in search and gets rid of the starting white space
-				pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
+				pen.write('\n' + "Couldn't find ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter])
 
 			if a_start != -1:
 
 				# writes in search and gets rid of the starting white space
-				pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
+				pen.write('\n' + "Found ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter] + " ---- " + counting)
+			
+			operation_counter += 1
+			print "Writing ---- " + str(operation_counter)
 
 		except urllib2.HTTPError as e:
-			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+			pen.write("\nCheck link ---- " + link_list[operation_counter] + ' ---- ' + str(responses[e.code]))
 		except urllib2.URLError:
-			pen.write("\nCheck link ---- " + link)
+			pen.write("\nCheck link ---- " + link_list[operation_counter])
 		except ValueError:
-			pen.write("\nCheck link ---- " + link)
+			pen.write("\nCheck link ---- " + link_list[operation_counter])
 
 	pen.close()
 
