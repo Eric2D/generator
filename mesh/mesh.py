@@ -48,4 +48,4 @@ def the_gen():
 
 the_gen()
 
-print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check results\n"
+print "\nOpen the results.txt results\n"

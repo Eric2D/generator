@@ -1,5 +1,13 @@
 # Searches queries in a batch of content and displays line of content's first occurance
 
+#####
+#####
+#####
+#####	ADD FEATURE TO DELETE DUPLICATE SEARCH TERMS AND KEEP ONE
+#####
+#####
+#####
+
 import io
 import os
 import sys
@@ -27,6 +35,13 @@ def the_gen():
 	reading = open("../ZZ_data_ZZ/content.txt")
 	lines = reading.readlines()
 	reading.close()
+
+	# Opens file content you would like to search and copies text to a string.
+	# helps for count of search term
+	reading2 = open("../ZZ_data_ZZ/content.txt")
+	full_text = reading2.read()
+	full_text = full_text.lower()
+	reading2.close()
 
 	# open file for writing
 	pen = open("../ZZ_data_ZZ/results.txt", 'w')
@@ -56,7 +71,7 @@ def the_gen():
 
 			line = y.lower()
 			finding = line.find(term)
-			counting = line.count(term)
+			counting = full_text.count(term)
 
 			# conditions for finding term
 			if finding != -1:
