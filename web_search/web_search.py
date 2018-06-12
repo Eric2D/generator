@@ -179,12 +179,12 @@ def search_type_2():
 
 			if a_start == -1:
 
-				# writes in search and gets rid of the starting white space
+				# writes in search
 				pen.write('\n' + "Couldn't find ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter])
 
 			if a_start != -1:
 
-				# writes in search and gets rid of the starting white space
+				# writes in search
 				pen.write('\n' + "Found ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter] + " ---- " + counting)
 			
 			operation_counter += 1

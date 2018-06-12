@@ -23,7 +23,7 @@ def counter(count):
 		print 'Please use a number.\n\n'
 		return
 
-def the_gen():
+def search_type_1():
 
 	count = None
 
@@ -71,7 +71,7 @@ def the_gen():
 
 			line = y.lower()
 			finding = line.find(term)
-			counting = full_text.count(term)
+			word_count = full_text.count(term)
 
 			# conditions for finding term
 			if finding != -1:
@@ -90,7 +90,7 @@ def the_gen():
 
 		# Found items will be saved to be written to remains
 		if no_luck == False:
-			pen.write("\n\nFound //// " + str(x) + " ---- " + str(counting))
+			pen.write("\n\nFound //// " + str(x) + " ---- " + str(word_count))
 			to_remains = [found_here]
 		
 		content_lines_found += to_remains
@@ -110,13 +110,82 @@ def the_gen():
 		print "Writing remains - " + str(num) + " / " + str(len(content_lines_found))
 
 	remains.close()
-	sys.exit()
 
-the_gen()
+# Search one line for one item in mass
+def search_type_2():
+	count = None
 
-print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' to quickly check "
-"results\n\nAnd open remains.txt to see the line of the first instance the content was found\n"
+	# to check input for an actual number
+	while count < 0:
+		count = counter(count)
 
+	# open file for writing
+	pen = open("../ZZ_data_ZZ/results.txt", 'w')
+
+	word_list = []
+	line_list = []
+
+	# loops for count
+	for x in range (count):
+		# inputs for search requirements
+		word = raw_input('What is the word or phrase? ' + str(x+1) + '\n\n')
+		word_list = word_list + [word]
+
+	for x in range (count):
+		line = raw_input("What line would you like to search from? " + str(x+1) + '\n\n')
+		line_list = line_list + [line]
+
+	for x in range (count):
+
+		# Redefine word and line
+		# And change case of word to expand search results
+		word = word_list[x]
+		word = word.lower()
+
+		line = line_list[x]
+		line = line.lower()
+
+
+		# finds and counts desired content
+		a_start = line.find(word)
+		word_count = line.count(word)
+		word_count = str(word_count)
+
+		if a_start == -1:
+
+			# writes in search
+			pen.write('\n' + "Couldn't find ---- " + word_list[x] + " ---- " + line_list[x] + " ---- .")
+
+		if a_start != -1:
+
+			# writes in search
+			pen.write('\n' + "Found ---- " + word_list[x] + " ---- " + line_list[x] + " ---- " + word_count)
+		
+		print "Writing ---- " + str(x)
+
+
+	pen.close()
+
+	print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check line' to quickly check results\n"
+
+
+
+answer = None
+
+while answer != "exit":
+
+	answer = raw_input("Which search type would you like to use?\n\n"
+		"	TYPE 1 - Search content for multiple phrases\n"
+		"	TYPE 2 - Search one line for one phrase in mass\n"
+		"	Exit\n\n")
+	answer = answer.lower()
+
+	if answer == "type 1":
+		search_type_1()
+	if answer == "type 2":
+		search_type_2()
+
+sys.exit()
 
 
 
