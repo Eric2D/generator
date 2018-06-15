@@ -143,7 +143,6 @@ def search_type_1():
 # Search one link for one item in mass
 def search_type_2():
 	count = None
-	operation_counter = 0
 	# to check input for an actual number
 	while count < 0:
 		count = counter(count)
@@ -168,34 +167,33 @@ def search_type_2():
 	for x in range (count):
 		try:
 			# gathers text from link and makes text lowercase
-			site_text = urllib2.urlopen(link_list[operation_counter])
+			site_text = urllib2.urlopen(link_list[x])
 			text = site_text.read()
 			text = text.lower()
 
 			# finds and counts desired content
-			a_start = text.find(word_list[operation_counter])
-			counting = text.count(word_list[operation_counter])
+			a_start = text.find(word_list[x])
+			counting = text.count(word_list[x])
 			counting = str(counting)
 
 			if a_start == -1:
 
 				# writes in search
-				pen.write('\n' + "Couldn't find ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter])
+				pen.write('\n' + "Couldn't find ---- " + word_list[x] + " ---- " + link_list[x])
 
 			if a_start != -1:
 
 				# writes in search
-				pen.write('\n' + "Found ---- " + word_list[operation_counter] + " ---- " + link_list[operation_counter] + " ---- " + counting)
+				pen.write('\n' + "Found ---- " + word_list[x] + " ---- " + link_list[x] + " ---- " + counting)
 			
-			operation_counter += 1
-			print "Writing ---- " + str(operation_counter)
+			print "Writing ---- " + str(x + 1)
 
 		except urllib2.HTTPError as e:
-			pen.write("\nCheck link ---- " + link_list[operation_counter] + ' ---- ' + str(responses[e.code]))
+			pen.write("\nCheck link ---- " + link_list[x] + ' ---- ' + str(responses[e.code]))
 		except urllib2.URLError:
-			pen.write("\nCheck link ---- " + link_list[operation_counter])
+			pen.write("\nCheck link ---- " + link_list[x])
 		except ValueError:
-			pen.write("\nCheck link ---- " + link_list[operation_counter])
+			pen.write("\nCheck link ---- " + link_list[x])
 
 	pen.close()
 
