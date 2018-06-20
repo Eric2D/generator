@@ -6,7 +6,7 @@ import glob
 import sys
 
 
-def it_does_the_thing(the_actual, tag_count, tags, tag_item, tags_close, tags_end, category, close_tag_c_count):
+def it_does_the_thing(the_actual, tag_count, tags, bad_tags, tag_item, tags_close, tags_end, category, close_tag_c_count):
 	# makes copy of the string, transfering bits of the string will be a way to keep from replacing a certain string multiple times
 	the_copy = the_actual
 	the_actual = ''
@@ -29,29 +29,42 @@ def it_does_the_thing(the_actual, tag_count, tags, tag_item, tags_close, tags_en
 		tag_a_check = the_copy[start:swrap + close_tag_c_count]
 		tag_a_closing = the_copy[start:finished + close_tag_c_count]
 
-		# check to skip if tag is <hr/>
-		if tag_atribute_check.find('<hr') != -1:
-			continue
-
-		# check to skip if <a> tag is the only thing inside a tag
-		if tag_a_check.find(tag_atribute_check + '<a ') != -1:
-			if tag_a_closing.find('</a>' + tags_close[tag_item]) != -1:
-				continue
-			if tag_a_closing.find('</a> ' + tags_close[tag_item]) != -1:
-				continue
+		# for searching for instance without spaces
+		whole_part = the_copy[start:finished]
+		nospace_whole_part = whole_part.replace(' ', '')
+		nospace_whole_part = whole_part.replace('\n', '')
 
 		# the content within the tags
 		tag_innards = the_copy[swrap:finished]
 
-		# check to skip html comments
-		if tag_innards.find('<!--') != -1:
-			continue
+		warning = "****ATTENTION REQUIRED****" + tag_innards
+		all_ok = True
 
-		
-		# fixes Quote issues and wraps php tag
-		replacement = '<?php _e("' + tag_innards.replace('"', '\\"') + '","' + category + '"); ?>'
+		# check to skip if tag is <hr/>
+		if tag_atribute_check.find('<hr') != -1:
+			all_ok = False
 
-		the_copy = the_copy.replace(tag_innards, replacement, 1)
+		# check to skip if <a> tag is the only thing inside a tag
+		if nospace_whole_part.find(tag_atribute_check + '<a ') != -1:
+			if tag_a_closing.find('</a>' + tags_close[tag_item]) != -1:
+				all_ok = False
+			if tag_a_closing.find('</a> ' + tags_close[tag_item]) != -1:
+				all_ok = False
+
+		# makes sure there are no unecessary tags housing tags that cause conflicts
+		for x in bad_tags:
+			if tag_innards.find(x) != -1:
+				all_ok = False
+
+
+		if all_ok == True:
+			# fixes Quote issues and wraps php tag
+			replacement = '<?php _e("' + tag_innards.replace('"', '\\"') + '","' + category + '"); ?>'
+
+			the_copy = the_copy.replace(tag_innards, replacement, 1)
+
+		else:
+			the_copy = the_copy.replace(tag_innards, warning, 1)
 
 		# Restablish the start and end of the changes to get next document portion
 		start = the_copy.find(tags[tag_item])
@@ -61,6 +74,7 @@ def it_does_the_thing(the_actual, tag_count, tags, tag_item, tags_close, tags_en
 		# actual obtains next portion of edited document
 		the_actual += the_copy[0:finished + close_tag_c_count]
 		the_copy = the_copy[finished + close_tag_c_count:]
+		
 
 	the_actual += the_copy
 
@@ -97,7 +111,8 @@ def the_gen():
 		"		<?php _e(\"String to be translated.\",\"category\"); ?>\n\n"
 		"What would you like the category to be?\n\n")
 
-	tags = ['<h', '<p', '<li', '<?php']
+	tags = ['<h', '<p', '<li']
+	bad_tags = ['<?php', '<ul', '<ol', '<button', '<!--']
 	tags_close = ['</h', '</p>', '</li>', '?>']
 	tags_end = '>'
 
@@ -107,11 +122,11 @@ def the_gen():
 
 	# goes through the function wrapping the php tag around desired content between html tags
 	# h tag
-	the_actual = it_does_the_thing(the_actual, h_count, tags, 0, tags_close, tags_end, category, 5)
+	the_actual = it_does_the_thing(the_actual, h_count, tags, bad_tags, 0, tags_close, tags_end, category, 5)
 	# p tag
-	the_actual = it_does_the_thing(the_actual, p_count, tags, 1, tags_close, tags_end, category, 4)
+	the_actual = it_does_the_thing(the_actual, p_count, tags, bad_tags, 1, tags_close, tags_end, category, 4)
 	# list tag
-	the_actual = it_does_the_thing(the_actual, list_count, tags, 2, tags_close, tags_end, category, 5)
+	the_actual = it_does_the_thing(the_actual, list_count, tags, bad_tags, 2, tags_close, tags_end, category, 5)
 
 
 
