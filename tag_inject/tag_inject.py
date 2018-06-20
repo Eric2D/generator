@@ -13,11 +13,9 @@ def it_does_the_thing(the_actual, tag_count, tags, tag_item, tags_close, tags_en
 
 	# checks and injects for h tag taking the content in the tag and wrapping it in the desired php phrase
 	for x in range(tag_count):
-		# finding existing php tags to work inside them
+		# finding existing tags types to ignore
 		#php_start
 		#php_end
-		#<hr/>_start
-		#<hr/>_end
 		
 		
 
@@ -26,8 +24,29 @@ def it_does_the_thing(the_actual, tag_count, tags, tag_item, tags_close, tags_en
 		swrap = the_copy.find(tags_end, start) + 1
 		finished = the_copy.find(tags_close[tag_item], swrap)
 
+		# for skip situations
+		tag_atribute_check = the_copy[start:swrap]
+		tag_a_check = the_copy[start:swrap + close_tag_c_count]
+		tag_a_closing = the_copy[start:finished + close_tag_c_count]
+
+		# check to skip if tag is <hr/>
+		if tag_atribute_check.find('<hr') != -1:
+			continue
+
+		# check to skip if <a> tag is the only thing inside a tag
+		if tag_a_check.find(tag_atribute_check + '<a ') != -1:
+			if tag_a_closing.find('</a>' + tags_close[tag_item]) != -1:
+				continue
+			if tag_a_closing.find('</a> ' + tags_close[tag_item]) != -1:
+				continue
+
 		# the content within the tags
 		tag_innards = the_copy[swrap:finished]
+
+		# check to skip html comments
+		if tag_innards.find('<!--') != -1:
+			continue
+
 		
 		# fixes Quote issues and wraps php tag
 		replacement = '<?php _e("' + tag_innards.replace('"', '\\"') + '","' + category + '"); ?>'
@@ -75,7 +94,7 @@ def the_gen():
 
 	# sets category for php tag
 	category = raw_input("\n\nThis is the php tag example...\n\n"
-		"		<?php _e('String to be translated.','category'); ?>\n\n"
+		"		<?php _e(\"String to be translated.\",\"category\"); ?>\n\n"
 		"What would you like the category to be?\n\n")
 
 	tags = ['<h', '<p', '<li', '<?php']
@@ -102,7 +121,7 @@ def the_gen():
 		creation.close()
 
 
-	print "Task Completed\n"
+	print "\n\nTask Completed\n"
 	"run ---- php -l filename.php ----\n"
 	"in the terminal to see if there are any errors\n"
 
