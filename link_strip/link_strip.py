@@ -146,7 +146,7 @@ for x in link_list:
 	marker = 0
 
 	# seperates link results in results file
-	pen.write("\n\n\n\n" + str(a_tag_count) + " ---- " + link + "----\n\n")
+	pen.write("\n\n\n\n" + str(a_tag_count) + " #----# " + link + " #----#\n")
 
 	for z in range (a_tag_count):
 
@@ -179,7 +179,7 @@ for x in link_list:
 
 			# if no proper href is found notify
 			if here == -1:
-				pen.write('\n' + "---- Empty a tag ---- ")
+				pen.write('\n' + "---- No href ---- ")
 				#sets up for next atag marker
 				marker = next_tag + 1
 				continue
@@ -191,6 +191,13 @@ for x in link_list:
 
 		# the link
 		findings = text[ link_start : href_end ]
+
+		# case for empty hrefs
+		if findings == '':
+			pen.write('\n' + "---- Empty a tag ---- ")
+			#sets up for next atag marker
+			marker = next_tag + 1
+			continue
 
 		#sets up for next atag marker
 		marker = next_tag + 1

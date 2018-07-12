@@ -68,6 +68,10 @@ def the_gen():
 			if finding == -1:
 				no_luck = True
 
+		# for carrying over special title sections // the exceptions
+		if content.find('#----#') != -1:
+			no_luck = True
+
 		# lines with unfound items will be written
 		if no_luck == True:
 			pen.write(x)
