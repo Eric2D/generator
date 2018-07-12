@@ -137,6 +137,8 @@ def the_gen():
 
 
 	print "\n\nTask Completed\n"
+	"Search '****ATTENTION REQUIRED****' in the document\n"
+	"find and make translation corrections\n\n"
 	"run ---- php -l filename.php ----\n"
 	"in the terminal to see if there are any errors\n"
 
