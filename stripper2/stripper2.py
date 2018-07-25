@@ -17,6 +17,7 @@ def the_gen(text):
 		fro = raw_input('The beginning of desired content?\n\n')
 		to = raw_input('And the word just after the desired phrase?\n\n')
 		count = input('How many times would you like to strip from this file?\n\n')
+		marker = 1
 
 		# open file for writing
 		pen = open("../ZZ_data_ZZ/results.txt", 'w')
@@ -25,7 +26,8 @@ def the_gen(text):
 		for x in range (count):
 
 			# finds starting point and end point for desired content
-			a_start = text.find(fro)
+			a_start = text.find(fro, marker)
+			a_start = a_start + len(fro)
 			a_finish = text.find(to, a_start)
 
 			if a_start == -1 or a_finish == -1:
@@ -35,13 +37,11 @@ def the_gen(text):
 
 				# declares the selected phrase
 				n_text = text[ a_start : a_finish]
-				
-				# deletes recently searched phrase from workspace so it is not searched again
-				text = text.replace(n_text, '', 1)
 
 				# writes in search and gets rid of the starting white space
 				pen.write('\n' + "Found" + " ---- " + n_text.strip())
 
+			marker = a_start + 1
 
 		pen.close()
 
