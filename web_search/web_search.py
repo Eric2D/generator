@@ -140,8 +140,75 @@ def search_type_1():
 
 	print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
 
-# Search one link for one item in mass
+
+
+# Search multiple links for one phrase
 def search_type_2():
+	count = None
+
+	# to check input for an actual number
+	while count < 0:
+		count = counter(count)
+
+	# inputs for search requirements and makes phrase lowercase
+	word = raw_input('What is the word or phrase?\n\n')
+	word = word.lower()
+
+	# Search markers
+	print "What two phrases would you like to search between?\n"
+	left_outer = raw_input('What is the left_outer word or phrase?\n\n')
+	right_outer = raw_input('What is the right_outer word or phrase?\n\n')
+
+	# open file for writing
+	pen = open("../ZZ_data_ZZ/results.txt", 'w')
+
+	# loops for each link input
+	for x in range (count):
+
+		link = raw_input("What link would you like to search from?\n\n")
+
+		print link
+
+		try:
+			# gathers text from link and makes text lowercase
+			site_text = urllib2.urlopen(link)
+			text = site_text.read()
+			text = text.lower()
+
+			# Finds Markers
+			Left_mark = text.find(left_outer)
+			right_mark = text.find(right_outer)
+
+			# finds and counts desired content
+			a_start = text.find(word, Left_mark, right_mark)
+			counting = text.count(word)
+			counting = str(counting)
+
+			if a_start == -1:
+
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Couldn't find ---- " + word + " ---- " + link)
+
+			if a_start != -1:
+
+				# writes in search and gets rid of the starting white space
+				pen.write('\n' + "Found ---- " + word + " ---- " + link + " ---- " + counting)
+
+		except urllib2.HTTPError as e:
+			pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
+		except urllib2.URLError:
+			pen.write("\nCheck link ---- " + link)
+		except ValueError:
+			pen.write("\nCheck link ---- " + link)
+
+	pen.close()
+
+	print "\nOpen the results.txt file and search 'Found', 'Couldn't find' or 'Check link' to quickly check results\n"
+
+
+
+# Search one link for one item in mass
+def search_type_3():
 	count = None
 	# to check input for an actual number
 	while count < 0:
@@ -205,13 +272,16 @@ while answer != "exit":
 
 	answer = raw_input("Which search type would you like to use?\n\n"
 		"	TYPE 1 - Search multiple links for one phrase\n"
-		"	TYPE 2 - Search one link for one item in mass\n"
+		"	TYPE 2 - Search multiple links for one phrase between tags\n"
+		"	TYPE 3 - Search one link for one item in mass\n"
 		"	Exit\n\n")
 	answer = answer.lower()
 
 	if answer == "type 1":
 		search_type_1()
 	if answer == "type 2":
+		search_type_2()
+	if answer == "type 3":
 		search_type_2()
 
 sys.exit()
