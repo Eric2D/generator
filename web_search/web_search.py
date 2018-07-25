@@ -89,6 +89,8 @@ def counter(count):
 # Search multiple links for one phrase
 def search_type_1():
 	count = None
+	load = 0
+	link_list = []
 
 	# to check input for an actual number
 	while count < 0:
@@ -104,9 +106,13 @@ def search_type_1():
 	# loops for each link input
 	for x in range (count):
 
-		link = raw_input("What link would you like to search from?\n\n")
+		link_list += [raw_input("What link would you like to search from?\n\n")]
 
-		print link
+	for x in link_list:
+		load += 1
+		link = x
+
+		print str(load) + " / " + str(len(link_list))
 
 		try:
 			# gathers text from link and makes text lowercase
