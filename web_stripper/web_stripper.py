@@ -87,7 +87,8 @@ def counter(count):
 		return
 
 count = None
-
+link_list = []
+load = 0
 
 # to check input for an actual number
 while count < 0:
@@ -103,9 +104,13 @@ pen = open("../ZZ_data_ZZ/results.txt", 'w')
 # loops for each link input
 for x in range (count):
 
-	link = raw_input("What link would you like to strip from?\n\n")
+	link_list += [raw_input("What link would you like to strip from?\n\n")]
 
-	print link
+for x in link_list:
+	
+	link = x
+	load += 1
+	print str(load) + " / " + str(len(link_list))
 
 	try:
 		# gathers text from link
@@ -118,17 +123,15 @@ for x in range (count):
 		a_finish = text.find(to, a_start)
 
 		if marker == -1 or a_finish == -1:
-			pen.write("\n---- Couldn't find ---- ")
+			pen.write("\n---- Couldn't find ---- " + link)
 
 		if marker != -1 and a_finish != -1:
 			# declares the selected phrase
 			n_text = text[ a_start : a_finish]
-			print a_start
-			print a_finish
 			
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found" + " ---- " + n_text.strip())
+			pen.write('\n' + "Found" + " ---- " + n_text.strip() + " ---- " + link)
 
 	except urllib2.HTTPError as e:
 		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
