@@ -146,6 +146,67 @@ def type_2():
 
 	print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' or 'Check text' to quickly check results\n"
 
+def type_3():
+	nextc = 1
+	marker = 0
+	results = []
+
+	# lists and sorts the files
+	file_list = os.listdir("../ZZ_files_ZZ/Done/.")
+	file_list.sort()
+
+
+	for x in file_list:
+
+		try:
+			x = "../ZZ_files_ZZ/Done/" + x
+			results += ["\n\n#----# " + x + " #----#\n\n"]
+			opening = open(x, 'r')
+			text = opening.read()
+			opening.close
+		except IOError:
+			results += ["\n\n#----#" + x + "#----#\n\n "
+			"//// Directory not a file ////\n"]
+
+
+		# simple loading stat
+		print str(nextc) + ' / ' + str(len(file_list))
+		nextc += 1
+
+		for y in range(2):
+			# Search points and count for a tags
+			item = "id='"
+			item_close = "'"
+			item_count = text.count(item)
+
+			if item_count == 0:
+				item = 'id="'
+				item_close = '"'
+				item_count = text.count(item)
+
+			for z in range(item_count):
+
+				# sections off and searches next a tag
+				next_tag = text.find(item, marker)
+				after_next = next_tag + len(item)
+				next_tag_close = text.find(item_close, after_next)
+				stripped = text[ after_next : next_tag_close ]
+				text = text.replace(item, '', 1)
+				results += [stripped]
+
+
+	# open file for writing results
+	pen = open("../ZZ_data_ZZ/results.txt", 'w')
+	for x in results:
+		if "#----#" in x:
+			pen.write(x + '\n')
+			continue
+
+		x = x.replace(' ', '\n')
+		pen.write(x + '\n')
+	pen.close()
+
+	print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' or 'Check text' to quickly check results\n"
 
 answer = None
 
@@ -154,6 +215,7 @@ while answer != "exit":
 	answer = raw_input("Which search type would you like to use?\n\n"
 		"	TYPE 1 - Scrape content from all files in a directory\n"
 		"	TYPE 2 - Scrape all a tages from content in content.txt file\n"
+		"	TYPE 3 - Scrape all classes tages from files in a directory\n"
 		"	Exit\n\n")
 	answer = answer.lower()
 
@@ -161,6 +223,8 @@ while answer != "exit":
 		type_1()
 	if answer == "type 2":
 		type_2()
+	if answer == "type 3":
+		type_3()
 
 sys.exit()
 
