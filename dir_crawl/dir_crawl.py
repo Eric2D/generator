@@ -47,7 +47,7 @@ def the_gen(start_directory):
 
 	print("working in directory - " + start_directory)
 
-	global scraped_list
+	global crawled_list
 
 	start_directory = path_fix(start_directory)
 
@@ -62,7 +62,7 @@ def the_gen(start_directory):
 		directory_list.sort()
 		
 
-		scraped_list += [start_directory]
+		crawled_list += [start_directory]
 
 		for x in directory_list:
 			
@@ -87,11 +87,11 @@ def the_gen(start_directory):
 
 warning = 0
 
-scraped_list = []
+crawled_list = []
 
 while warning >= 0:
 
-	start_directory = raw_input("Please enter directory to scrape\n\n\n")
+	start_directory = raw_input("Please enter directory to crawl\n\n\n")
 
 	warning = the_gen(start_directory)
 
@@ -103,7 +103,7 @@ while warning >= 0:
 pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
 # loops for each file in the_data folder
-for x in scraped_list:
+for x in crawled_list:
 
 	# Writes the file name in results folder
 	pen.write('\n' + x)
