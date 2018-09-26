@@ -67,78 +67,73 @@ def type_2():
 	# open file for writing results
 	pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
+	# Search points and count for a tags
+	a_tag = "<a"
+	tag_close = ">"
+	a_tag_count = text.count(a_tag)
 
+	marker = 0
 
-
-	for x in range(count):
+	for z in range (a_tag_count):
 
 		# simple loading stat
 		print str(nextc) + ' / ' + str(count)
 		nextc += 1
 
-		# Search points and count for a tags
-		a_tag = "<a"
-		tag_close = ">"
-		a_tag_count = text.count(a_tag)
+		# search points for href in a tags
+		findings = ''
+		href_open = 'href="'
+		href_close = '"'
 
-		marker = 0
+		here = None
 
-		for z in range (a_tag_count):
+		# sections off and searches next a tag
+		next_tag = text.find(a_tag, marker)
+		next_tag_close = text.find(tag_close, next_tag)
+		full_a_tag = text[ next_tag : next_tag_close + 1 ]
 
-			# search points for href in a tags
-			findings = ''
-			href_open = 'href="'
-			href_close = '"'
+		# deletes spaces to improve search results
+		full_a_tag = full_a_tag.replace(' ', '')
 
-			here = None
+		################### for search of href" ###################
+		here = full_a_tag.find(href_open)
 
-			# sections off and searches next a tag
-			next_tag = text.find(a_tag, marker)
-			next_tag_close = text.find(tag_close, next_tag)
-			full_a_tag = text[ next_tag : next_tag_close + 1 ]
+		# if no href=" or href=' then skip
+		if here == -1:
 
-			# deletes spaces to improve search results
-			full_a_tag = full_a_tag.replace(' ', '')
+			################### for search of href' ###################
 
-			################### for search of href" ###################
+			# search second case
+			href_open = "href='"
 			here = full_a_tag.find(href_open)
 
-			# if no href=" or href=' then skip
+			# if no proper href is found notify
 			if here == -1:
-
-				################### for search of href' ###################
-
-				# search second case
-				href_open = "href='"
-				here = full_a_tag.find(href_open)
-
-				# if no proper href is found notify
-				if here == -1:
-					pen.write('\n' + "---- No href ---- ")
-					#sets up for next atag marker
-					marker = next_tag + 1
-					continue
-
-			# uses coordinates to extract text from a tag
-			href_start = text.find(href_open, next_tag)
-			text_start = len(href_open) + href_start
-			href_end = text.find(href_close , text_start)
-
-			# the text
-			findings = text[ text_start : href_end ]
-
-			# case for empty hrefs
-			if findings == '':
-				pen.write('\n' + "---- Empty a tag ---- ")
+				pen.write('\n' + "---- No href ---- ")
 				#sets up for next atag marker
 				marker = next_tag + 1
 				continue
 
+		# uses coordinates to extract text from a tag
+		href_start = text.find(href_open, next_tag)
+		text_start = len(href_open) + href_start
+		href_end = text.find(href_close , text_start)
+
+		# the text
+		findings = text[ text_start : href_end ]
+
+		# case for empty hrefs
+		if findings == '':
+			pen.write('\n' + "---- Empty a tag ---- ")
 			#sets up for next atag marker
 			marker = next_tag + 1
+			continue
 
-			# writes in search and gets rid of the starting white space
-			pen.write('\n' + "Found" + " ---- " + findings.strip())
+		#sets up for next atag marker
+		marker = next_tag + 1
+
+		# writes in search and gets rid of the starting white space
+		pen.write('\n' + "Found" + " ---- " + findings.strip())
 
 
 
