@@ -1,4 +1,4 @@
-# web stripper searches through content provided from links  to pull desired content
+# web scraper searches through content provided from links  to pull desired content
 
 import io
 import os
@@ -77,7 +77,7 @@ responses = {
 
 def counter(count):
 	try:
-		count = input('How many links would you like to strip from?\n\n')
+		count = input('How many links would you like to scrape from?\n\n')
 		return count
 	except SyntaxError:
 		print 'Please use a number.\n\n'
@@ -86,135 +86,61 @@ def counter(count):
 		print 'Please use a number.\n\n'
 		return
 
-
-
-
 count = None
-nextc = 1
-
+link_list = []
+load = 0
 
 # to check input for an actual number
 while count < 0:
 	count = counter(count)
 
+# inputs for search requirements
+fro = raw_input('Start search for phrase after?\n\n')
+to = raw_input('And the word just after the desired phrase?\n\n')
 
-link_list = []
-
-
-# open file for writing results
+# open file for writing
 pen = open("../ZZ_data_ZZ/results.txt", 'w')
 
-# write links into a list
+# loops for each link input
 for x in range (count):
 
-	link_list += [raw_input("What link would you like to strip from?\n\n")]
-
+	link_list += [raw_input("What link would you like to scrape from?\n\n")]
 
 for x in link_list:
-
+	
 	link = x
+	load += 1
+	print str(load) + " / " + str(len(link_list))
 
-	# simple loading stat
-	print str(nextc) + ' / ' + str(count)
-	print link
-	nextc += 1
-
-	# link check
 	try:
 		# gathers text from link
 		site_text = urllib2.urlopen(link)
 		text = site_text.read()
-		site_text.close()
+
+		# finds starting point and end point for desired content content
+		marker = text.find(fro)
+		a_start = marker + len(fro)
+		a_finish = text.find(to, a_start)
+
+		if marker == -1 or a_finish == -1:
+			pen.write("\n---- Couldn't find ---- " + link)
+
+		if marker != -1 and a_finish != -1:
+			# declares the selected phrase
+			n_text = text[ a_start : a_finish]
+			
+
+			# writes in search and gets rid of the starting white space
+			pen.write('\n' + "Found" + " ---- " + n_text.scrap() + " ---- " + link)
 
 	except urllib2.HTTPError as e:
-		pen.write("\nCheck link ---- " + str(responses[e.code]))
-		continue
+		pen.write("\nCheck link ---- " + link + ' ---- ' + str(responses[e.code]))
 	except urllib2.URLError:
-		pen.write("\n---- Check link ---- ")
-		continue
+		pen.write("\nCheck link ---- " + link)
 	except ValueError:
-		pen.write("\n---- Check link ---- ")
-		continue
-
-
-
-	# Search points and count for a tags
-	a_tag = "<a"
-	tag_close = ">"
-	a_tag_count = text.count(a_tag)
-
-	marker = 0
-
-	# seperates link results in results file
-	pen.write("\n\n\n\n" + str(a_tag_count) + " #----# " + link + " #----#\n")
-
-	for z in range (a_tag_count):
-
-		# search points for href in a tags
-		findings = ''
-		href_open = 'href="'
-		href_close = '"'
-
-		here = None
-
-		# sections off and searches next a tag
-		next_tag = text.find(a_tag, marker)
-		next_tag_close = text.find(tag_close, next_tag)
-		full_a_tag = text[ next_tag : next_tag_close + 1 ]
-
-		# deletes spaces to improve search results
-		full_a_tag = full_a_tag.replace(' ', '')
-
-		################### for search of href" ###################
-		here = full_a_tag.find(href_open)
-
-		# if no href=" or href=' then skip
-		if here == -1:
-
-			################### for search of href' ###################
-
-			# search second case
-			href_open = "href='"
-			here = full_a_tag.find(href_open)
-
-			# if no proper href is found notify
-			if here == -1:
-				pen.write('\n' + "---- No href ---- ")
-				#sets up for next atag marker
-				marker = next_tag + 1
-				continue
-
-		# uses coordinates to extract link from a tag
-		href_start = text.find(href_open, next_tag)
-		link_start = len(href_open) + href_start
-		href_end = text.find(href_close , link_start)
-
-		# the link
-		findings = text[ link_start : href_end ]
-
-		# case for empty hrefs
-		if findings == '':
-			pen.write('\n' + "---- Empty a tag ---- ")
-			#sets up for next atag marker
-			marker = next_tag + 1
-			continue
-
-		#sets up for next atag marker
-		marker = next_tag + 1
-
-		# writes in search and gets rid of the starting white space
-		pen.write('\n' + "Found" + " ---- " + findings.strip())
-
-
-
-
-
+		pen.write("\nCheck link ---- " + link)
 
 
 pen.close()
 
 print "\nOpen the results.txt file and search 'Found' or 'Couldn't find' or 'Check link' to quickly check results\n"
-
-
-
-

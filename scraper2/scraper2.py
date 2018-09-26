@@ -1,4 +1,4 @@
-# stripper2 mass searches through the content file and reuturns desired search results
+# scraper2 mass searches through the content file and reuturns desired search results
 
 import io
 import os
@@ -16,7 +16,7 @@ def the_gen(text):
 		# inputs for search requirements
 		fro = raw_input('The beginning of desired content?\n\n')
 		to = raw_input('And the word just after the desired phrase?\n\n')
-		count = input('How many times would you like to strip from this file?\n\n')
+		count = input('How many times would you like to scrape from this file?\n\n')
 		marker = 1
 
 		# open file for writing
@@ -39,13 +39,13 @@ def the_gen(text):
 				n_text = text[ a_start : a_finish]
 
 				# writes in search and gets rid of the starting white space
-				pen.write('\n' + "Found" + " ---- " + n_text.strip())
+				pen.write('\n' + "Found" + " ---- " + n_text.scrap())
 
 			marker = a_start + 1
 
 		pen.close()
 
-		# saves the what is left after the strip
+		# saves the what is left after the scrap
 		remains = open("../ZZ_data_ZZ/remains.txt", 'w')
 		remains.write(text)
 		remains.close

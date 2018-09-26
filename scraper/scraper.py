@@ -1,4 +1,4 @@
-# stripper searches through all files in the_data folder and returns a list of results
+# scraper searches through all files in the_data folder and returns a list of results
 
 import io
 import os
@@ -19,7 +19,7 @@ def type_1():
 	# loops for each file in the_data folder
 	for x in files:
 
-		# prints current file for stripping
+		# prints current file for scraping
 		print x
 
 		# gathers text content from file
@@ -42,7 +42,7 @@ def type_1():
 			
 
 			# writes in search and gets rid of the starting white space
-			pen.write('\n' + n_text.strip())
+			pen.write('\n' + n_text.scrap())
 
 
 	pen.close()
@@ -133,7 +133,7 @@ def type_2():
 		marker = next_tag + 1
 
 		# writes in search and gets rid of the starting white space
-		pen.write('\n' + "Found" + " ---- " + findings.strip())
+		pen.write('\n' + "Found" + " ---- " + findings.scrap())
 
 
 
@@ -185,9 +185,9 @@ def type_3():
 				next_tag = text.find(item, marker)
 				after_next = next_tag + len(item)
 				next_tag_close = text.find(item_close, after_next)
-				stripped = text[ after_next : next_tag_close ]
+				scraped = text[ after_next : next_tag_close ]
 				text = text.replace(item, '', 1)
-				results += [stripped]
+				results += [scraped]
 
 
 	# open file for writing results
