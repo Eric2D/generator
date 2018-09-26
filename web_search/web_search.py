@@ -259,7 +259,7 @@ def search_type_3():
 				# writes in search
 				pen.write('\n' + "Found ---- " + word_list[x] + " ---- " + link_list[x] + " ---- " + counting)
 			
-			print "Writing ---- " + str(x + 1)
+			print "Writing ---- " + str(x + 1) + '/' + str(count)
 
 		except urllib2.HTTPError as e:
 			pen.write("\nCheck link ---- " + link_list[x] + ' ---- ' + str(responses[e.code]))
@@ -288,6 +288,6 @@ while answer != "exit":
 	if answer == "type 2":
 		search_type_2()
 	if answer == "type 3":
-		search_type_2()
+		search_type_3()
 
 sys.exit()
