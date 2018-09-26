@@ -57,6 +57,7 @@ def search_type_1():
 	to_remains = []
 
 	num = 0
+	no_luck = ''
 
 	# searchs terms by each content's line
 	for x in term_list:
